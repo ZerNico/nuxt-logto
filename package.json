@@ -1,8 +1,11 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "name": "@zernico/nuxt-logto",
+  "version": "0.0.0",
+  "description": "Logto auth module for Nuxt 3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZerNico/nuxt-logto.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -24,21 +27,30 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
+    "prettier": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.4.3"
+    "@logto/node": "^2.0.0",
+    "@nuxt/kit": "^3.4.3",
+    "defu": "^6.1.2",
+    "h3": "^1.6.5",
+    "iron-session": "^6.3.1"
   },
   "devDependencies": {
-    "@types/node": "^18",
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxt/module-builder": "^0.3.0",
     "@nuxt/schema": "^3.4.3",
     "@nuxt/test-utils": "^3.4.3",
+    "@types/node": "^18",
+    "@types/supertest": "^2.0.12",
     "changelogen": "^0.5.3",
     "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
     "nuxt": "^3.4.3",
+    "prettier": "^2.8.8",
+    "supertest": "^6.3.3",
     "vitest": "^0.30.1"
   }
 }

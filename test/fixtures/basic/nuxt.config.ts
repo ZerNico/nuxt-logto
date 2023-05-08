@@ -1,7 +1,6 @@
-import MyModule from '../../../src/module'
+import NuxtLogto from '../../../src/module'
 
 export default defineNuxtConfig({
-  modules: [
-    MyModule
-  ]
+  // @ts-ignore
+  modules: [NuxtLogto],
 })
