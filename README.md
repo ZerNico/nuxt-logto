@@ -15,13 +15,13 @@ Logto auth module for Nuxt 3.
 
 ```bash
 # Using pnpm
-pnpm add -D @zernico/nuxt-logto
+pnpm add @zernico/nuxt-logto
 
 # Using yarn
-yarn add --dev @zernico/nuxt-logto
+yarn add @zernico/nuxt-logto
 
 # Using npm
-npm install --save-dev @zernico/nuxt-logto
+npm install @zernico/nuxt-logto
 ```
 
 2. Add `@zernico/nuxt-logto` to the `modules` section of `nuxt.config.ts`
@@ -54,7 +54,7 @@ export default defineNuxtConfig({
 
 ```js
 // lib/logto.ts
-import LogtoClient from '@logto/next'
+import { LogtoClient } from "#logto";
 
 export const logtoClient = new LogtoClient()
 ```
@@ -74,10 +74,26 @@ import { logtoClient } from '~/lib/logto'
 
 export default logtoClient.handleAuthRoutes({
   getAccessToken: true, // get access token from logto
-  resource: '<your-resource-id>', // optionally add a resource to audience of access token
+  resource: '<your-resource-id>', // optionally add a resource for your access token
   fetchUserInfo: true, // fetch user info from logto, in most cases you want to use claims instead
 })
+````
+
+6. Use the composable
+
+```vue
+<script setup lang="ts">
+const { signIn, signOut } = useLogto();
+</script>
+
+<template>
+  <div>
+    <button @click="() => signIn()">Login</button>
+    <button @click="() => signOut()">Logout</button>
+  </div>
+</template>
 ```
+
 
 That's it! You can now use Nuxt Logto in your Nuxt app ✨
 
