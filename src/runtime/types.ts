@@ -12,10 +12,9 @@ declare module 'iron-session' {
   }
 }
 
-export interface ModuleOptions extends LogtoConfig {
+export interface LogtoNuxtConfig extends LogtoConfig {
   cookieSecret: string
   cookieSecure: boolean
-  cookieHttpOnly: boolean
   baseUrl: string
 }
 

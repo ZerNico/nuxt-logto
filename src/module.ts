@@ -1,8 +1,8 @@
 import { defineNuxtModule, addPlugin, createResolver, addTemplate, addImports } from '@nuxt/kit'
 import { defu } from 'defu'
-import { ModuleOptions } from './runtime/types'
+import { LogtoNuxtConfig } from './runtime/types'
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule<LogtoNuxtConfig>({
   meta: {
     name: '@zernico/nuxt-logto',
     configKey: 'logto',
@@ -17,7 +17,6 @@ export default defineNuxtModule<ModuleOptions>({
       },
       {
         coookieSecure: true,
-        cookieHttpOnly: true,
       }
     )
 

@@ -4,11 +4,11 @@ import { ComputedRef } from 'nuxt/dist/app/compat/vue-demi'
 
 export interface UseLogtoOptions {
   /**
-   * The URL to fetch the user info from.
+   * The URL to fetch the user context from.
    *
-   * @default '/api/logto/user'
+   * @default '/api/logto/context'
    */
-  userUrl?: string
+  contextUrl?: string
 }
 
 export interface UseLogtoReturn {
@@ -31,9 +31,9 @@ export interface UseLogtoReturn {
  * @returns An object containing various properties and methods related to Logto user info.
  */
 export const useLogto = (options?: UseLogtoOptions): UseLogtoReturn => {
-  const { userUrl = '/api/logto/user' } = options || {}
+  const { contextUrl = '/api/logto/context' } = options || {}
 
-  const { data, refresh, pending } = useFetch<LogtoContext>(userUrl)
+  const { data, refresh, pending } = useFetch<LogtoContext>(contextUrl)
 
   /**
    * Whether the user is authenticated.

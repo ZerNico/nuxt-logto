@@ -1,28 +1,27 @@
 import { afterEach, describe, vi, it, expect, beforeEach } from 'vitest'
-import { LogtoClient } from './index'
-import type { ModuleOptions } from './types.js'
 import { App, EventHandler, Router, createApp, createRouter, toNodeListener } from 'h3'
 import supertest, { SuperTest, Test } from 'supertest'
 import { type InteractionMode } from '@logto/node'
+import { LogtoClient } from './client'
+import { LogtoNuxtConfig } from "../types"
 
-const signInUrl = 'http://mock-logto-server.com/sign-in'
-
-const config: ModuleOptions = {
+const config: LogtoNuxtConfig = {
   appId: 'app_id_value',
   endpoint: 'https://logto.dev',
   baseUrl: 'http://localhost:3000',
-  cookieHttpOnly: true,
   cookieSecret: 'complex_password_at_least_32_characters_long',
   cookieSecure: process.env.NODE_ENV === 'production',
 }
 
-const setItem = vi.fn()
-const getItem = vi.fn()
-const save = vi.fn()
-const signIn = vi.fn()
-const handleSignInCallback = vi.fn()
-const signOut = vi.fn()
-const getContext = vi.fn()
+const signInUrl = 'http://mock-logto-server.com/sign-in'
+
+vi.mock('#imports', () => ({
+  useRuntimeConfig: () => {
+    return {
+      logto: config,
+    }
+  },
+}))
 
 vi.mock('./storage', () => ({
   default: class Storage {
@@ -33,17 +32,17 @@ vi.mock('./storage', () => ({
   },
 }))
 
-vi.mock('#imports', () => ({
-  useRuntimeConfig: () => {
-    return {
-      logto: config,
-    }
-  },
-}))
-
 type Adapter = {
   navigate: (url: string) => void
 }
+
+const setItem = vi.fn()
+const getItem = vi.fn()
+const save = vi.fn()
+const signIn = vi.fn()
+const handleSignInCallback = vi.fn()
+const signOut = vi.fn()
+const getContext = vi.fn()
 
 vi.mock('@logto/node', () => ({
   default: class NodeClient {
@@ -76,7 +75,7 @@ describe('Nuxt LogtoClient', () => {
   afterEach(() => {
     vi.resetAllMocks()
   })
-
+  
   it('creates an instance without crash', () => {
     expect(() => new LogtoClient()).not.toThrow()
   })
@@ -131,11 +130,11 @@ describe('Nuxt LogtoClient', () => {
     })
   })
 
-  describe('handleUser', () => {
+  describe('handleContext', () => {
     it('should call getContext', async () => {
       const client = new LogtoClient()
-      app.use('/api/logto/user', client.handleUser())
-      await request.get('/api/logto/user')
+      app.use('/api/logto/context', client.handleContext())
+      await request.get('/api/logto/context')
 
       expect(getContext).toHaveBeenCalled()
     })
@@ -190,18 +189,18 @@ describe('Nuxt LogtoClient', () => {
       expect(client.handleSignOut).toHaveBeenCalled()
     })
 
-    it('should call handleUser', async () => {
+    it('should call handleContext', async () => {
       const client = new LogtoClient()
 
       const mockEventHandler: EventHandler = async () => {
         return 'mock response'
       }
-      vi.spyOn(client, 'handleUser').mockImplementation(() => mockEventHandler)
+      vi.spyOn(client, 'handleContext').mockImplementation(() => mockEventHandler)
       router.get('/api/logto/:action', client.handleAuthRoutes())
       app.use(router)
-      await request.get('/api/logto/user')
+      await request.get('/api/logto/context')
 
-      expect(client.handleUser).toHaveBeenCalled()
+      expect(client.handleContext).toHaveBeenCalled()
     })
   })
 })

@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     baseUrl: '<your-nextjs-app-base-url>', // E.g. http://localhost:3000
     cookieSecret: 'complex_password_at_least_32_characters_long',
     cookieSecure: process.env.NODE_ENV === 'production',
-    cookieHttpOnly: true,
     resources: ['<your-resource-id>'], // optionally add a resource
   },
 })
