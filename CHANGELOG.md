@@ -1,4 +1,17 @@
 
+## v0.0.5
+
+[compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.4...v0.0.5)
+
+
+### 💅 Refactors
+
+  - Remove left in console log ([d6eda81](https://github.com/ZerNico/nuxt-logto/commit/d6eda81))
+
+### ❤️  Contributors
+
+- ZerNico ([@ZerNico](http://github.com/ZerNico))
+
 ## v0.0.4
 
 [compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.3...v0.0.4)
