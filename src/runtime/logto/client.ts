@@ -40,8 +40,6 @@ export class LogtoClient {
   handleSignInCallback = (redirectTo = this.logtoConfig.baseUrl) =>
     eventHandler(async (event) => {
       const logtoEvent = await createLogtoEvent(event, this.logtoConfig)
-      console.log('get', await logtoEvent.storage.getItem('signInSession'))
-
       const url = event.node.req.url
 
       if (url) {
