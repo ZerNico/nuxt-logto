@@ -1,4 +1,17 @@
 
+## v0.0.7
+
+[compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.6...v0.0.7)
+
+
+### 🩹 Fixes
+
+  - Add default base path to server runtime config ([06cd47a](https://github.com/ZerNico/nuxt-logto/commit/06cd47a))
+
+### ❤️  Contributors
+
+- ZerNico ([@ZerNico](http://github.com/ZerNico))
+
 ## v0.0.6
 
 [compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.5...v0.0.6)
