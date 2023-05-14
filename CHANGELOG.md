@@ -1,4 +1,17 @@
 
+## v0.0.6
+
+[compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.5...v0.0.6)
+
+
+### 💅 Refactors
+
+  - Load context in nuxt plugin ([d6b75b9](https://github.com/ZerNico/nuxt-logto/commit/d6b75b9))
+
+### ❤️  Contributors
+
+- ZerNico ([@ZerNico](http://github.com/ZerNico))
+
 ## v0.0.5
 
 [compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.4...v0.0.5)
