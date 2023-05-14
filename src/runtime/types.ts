@@ -15,7 +15,8 @@ declare module 'iron-session' {
 export interface LogtoNuxtConfig extends LogtoConfig {
   cookieSecret: string
   cookieSecure: boolean
-  baseUrl: string
+  origin: string
+  basePath: string
 }
 
 export type Adapters = {

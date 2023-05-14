@@ -41,7 +41,8 @@ export default defineNuxtConfig({
     appId: '<your-application-id>',
     appSecret: '<your-app-secret-copied-from-console>',
     endpoint: '<your-logto-endpoint>', // E.g. http://localhost:3001
-    baseUrl: '<your-nextjs-app-base-url>', // E.g. http://localhost:3000
+    origin: '<your-nextjs-app-origin>', // E.g. http://localhost:3000
+    basePath: '/api/logto', // Path to your logto api routes, e.g. /api/logto
     cookieSecret: 'complex_password_at_least_32_characters_long',
     cookieSecure: process.env.NODE_ENV === 'production',
     resources: ['<your-resource-id>'], // optionally add a resource

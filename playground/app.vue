@@ -1,7 +1,7 @@
 <script setup>
 import { useLogto } from './.nuxt/imports'
 
-const { claims, accessToken, signIn, signOut, signUp, refresh } = useLogto()
+const { claims, accessToken, signIn, signOut, signUp, fetchContext } = useLogto()
 </script>
 
 <template>
@@ -14,6 +14,6 @@ const { claims, accessToken, signIn, signOut, signUp, refresh } = useLogto()
     <button @click="() => signIn()">Sign In</button>
     <button @click="() => signUp()">Sign Up</button>
     <button @click="() => signOut()">Sign Out</button>
-    <button @click="() => refresh()">Refresh</button>
+    <button @click="() => fetchContext()">Refresh</button>
   </div>
 </template>

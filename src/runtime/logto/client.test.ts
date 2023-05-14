@@ -8,7 +8,8 @@ import { LogtoNuxtConfig } from "../types"
 const config: LogtoNuxtConfig = {
   appId: 'app_id_value',
   endpoint: 'https://logto.dev',
-  baseUrl: 'http://localhost:3000',
+  origin: 'http://localhost:3000',
+  basePath: '/api/logto',
   cookieSecret: 'complex_password_at_least_32_characters_long',
   cookieSecure: process.env.NODE_ENV === 'production',
 }
@@ -55,7 +56,7 @@ vi.mock('@logto/node', () => ({
       signIn()
     }
     signOut = async () => {
-      this.navigate(config.baseUrl)
+      this.navigate(config.origin)
       signOut()
     }
     handleSignInCallback = handleSignInCallback
@@ -111,7 +112,7 @@ describe('Nuxt LogtoClient', () => {
 
       const result = await request.get('/api/logto/sign-in-callback')
 
-      expect(result.header.location).toBe(config.baseUrl)
+      expect(result.header.location).toBe(config.origin)
       expect(handleSignInCallback).toHaveBeenCalled()
       expect(save).toHaveBeenCalled()
     })
@@ -124,7 +125,7 @@ describe('Nuxt LogtoClient', () => {
 
       const result = await request.get('/api/logto/sign-out')
 
-      expect(result.header.location).toBe(`${config.baseUrl}`)
+      expect(result.header.location).toBe(`${config.origin}`)
       expect(save).toHaveBeenCalled()
       expect(signOut).toHaveBeenCalled()
     })

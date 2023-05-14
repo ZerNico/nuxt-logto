@@ -8,7 +8,8 @@ import NuxtStorage from "./storage"
 const config: LogtoNuxtConfig = {
   appId: 'app_id_value',
   endpoint: 'https://logto.dev',
-  baseUrl: 'http://localhost:3000',
+  origin: 'http://localhost:3000',
+  basePath: '/api/logto',
   cookieSecret: 'complex_password_at_least_32_characters_long',
   cookieSecure: process.env.NODE_ENV === 'production',
 }

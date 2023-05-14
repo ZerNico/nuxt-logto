@@ -19,7 +19,7 @@ export class LogtoClient {
    * @returns An event handler to handle sign in / sign up.
    */
   handleSignIn = (
-    redirectUri = `${this.logtoConfig.baseUrl}/api/logto/sign-in-callback`,
+    redirectUri = `${this.logtoConfig.origin}${this.logtoConfig.basePath}/sign-in-callback`,
     interactionMode?: InteractionMode
   ) =>
     eventHandler(async (event) => {
@@ -37,13 +37,13 @@ export class LogtoClient {
    * @param redirectTo - The uri to redirect to after sign in.
    * @returns An event handler to handle sign in callback.
    */
-  handleSignInCallback = (redirectTo = this.logtoConfig.baseUrl) =>
+  handleSignInCallback = (redirectTo = this.logtoConfig.origin) =>
     eventHandler(async (event) => {
       const logtoEvent = await createLogtoEvent(event, this.logtoConfig)
       const url = event.node.req.url
 
       if (url) {
-        await logtoEvent.nodeClient.handleSignInCallback(`${this.logtoConfig.baseUrl}${url}`)
+        await logtoEvent.nodeClient.handleSignInCallback(`${this.logtoConfig.origin}${url}`)
         await logtoEvent.storage.save()
         return sendRedirect(event, redirectTo)
       }
@@ -54,7 +54,7 @@ export class LogtoClient {
    * @param redirectUri - The uri to redirect to after sign out.
    * @returns An event handler to handle sign out.
    */
-  handleSignOut = (redirectUri = this.logtoConfig.baseUrl) =>
+  handleSignOut = (redirectUri = this.logtoConfig.origin) =>
     eventHandler(async (event) => {
       const logtoEvent = await createLogtoEvent(event, this.logtoConfig)
       await logtoEvent.nodeClient.signOut(redirectUri)
