@@ -1,16 +1,18 @@
 import type { Storage, StorageKey } from '@logto/node'
 import { type IronSession } from 'iron-session'
 
+type ExtendedStorageKey = StorageKey | 'redirectTo' 
+
 export default class NuxtStorage implements Storage {
   private sessionChanged = false
   constructor(private readonly session: IronSession) {}
 
-  async setItem(key: StorageKey, value: string) {
+  async setItem(key: ExtendedStorageKey, value: string) {
     this.session[key] = value
     this.sessionChanged = true
   }
 
-  async getItem(key: StorageKey) {
+  async getItem(key: ExtendedStorageKey) {
     const value = this.session[key]
 
     if (value === undefined) {
@@ -20,7 +22,7 @@ export default class NuxtStorage implements Storage {
     return String(value)
   }
 
-  async removeItem(key: StorageKey) {
+  async removeItem(key: ExtendedStorageKey) {
     this.session[key] = undefined
     this.sessionChanged = true
   }
