@@ -1,4 +1,22 @@
 
+## v0.0.8
+
+[compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.7...v0.0.8)
+
+
+### 🚀 Enhancements
+
+  - Allow custom redirect url after sign in ([c80122d](https://github.com/ZerNico/nuxt-logto/commit/c80122d))
+
+### 🏡 Chore
+
+  - Add renovate.json ([#6](https://github.com/ZerNico/nuxt-logto/pull/6))
+  - Load playground variables from env ([a30fbd3](https://github.com/ZerNico/nuxt-logto/commit/a30fbd3))
+
+### ❤️  Contributors
+
+- ZerNico ([@ZerNico](http://github.com/ZerNico))
+
 ## v0.0.7
 
 [compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.6...v0.0.7)
