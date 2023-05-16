@@ -1,8 +1,9 @@
 import { GetContextParameters, InteractionMode } from '@logto/node'
-import { createLogtoEvent } from './event'
-import { H3Event, eventHandler, sendRedirect } from 'h3'
+import { H3Event, eventHandler, sendRedirect, getQuery } from 'h3'
+import { joinURL } from 'ufo'
 import { useRuntimeConfig } from '#imports'
 import { LogtoNuxtConfig } from '../types'
+import { createLogtoEvent } from './event'
 
 export class LogtoClient {
   protected logtoConfig: LogtoNuxtConfig
@@ -25,6 +26,16 @@ export class LogtoClient {
     eventHandler(async (event) => {
       const logtoEvent = await createLogtoEvent(event, this.logtoConfig)
       await logtoEvent.nodeClient.signIn(redirectUri, interactionMode)
+
+      // allow redirect to be set via query param
+      const query = getQuery(event)
+      const redirectTo = typeof query.redirectTo === 'string' ? query.redirectTo : undefined
+      if (redirectTo) {
+        await logtoEvent.storage.setItem('redirectTo', redirectTo)
+      } else {
+        await logtoEvent.storage.removeItem('redirectTo')
+      }
+
       await logtoEvent.storage.save()
 
       if (logtoEvent.navigateUrl) {
@@ -37,15 +48,20 @@ export class LogtoClient {
    * @param redirectTo - The uri to redirect to after sign in.
    * @returns An event handler to handle sign in callback.
    */
-  handleSignInCallback = (redirectTo = this.logtoConfig.origin) =>
+  handleSignInCallback = (redirectTo?: string) =>
     eventHandler(async (event) => {
       const logtoEvent = await createLogtoEvent(event, this.logtoConfig)
+
+      // use redirectTo if it is provided, otherwise use the one saved in storage or the origin
+      const storedRedirect = await logtoEvent.storage.getItem('redirectTo')
+      const redirect = redirectTo ? redirectTo : joinURL(this.logtoConfig.origin, storedRedirect || '')
+
       const url = event.node.req.url
 
       if (url) {
         await logtoEvent.nodeClient.handleSignInCallback(`${this.logtoConfig.origin}${url}`)
         await logtoEvent.storage.save()
-        return sendRedirect(event, redirectTo)
+        return sendRedirect(event, redirect)
       }
     })
 

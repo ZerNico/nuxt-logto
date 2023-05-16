@@ -9,6 +9,7 @@ declare module 'iron-session' {
     idToken?: string
     signInSession?: string
     refreshToken?: string
+    redirectTo?: string
   }
 }
 

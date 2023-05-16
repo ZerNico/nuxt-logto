@@ -1,6 +1,7 @@
 import { computed, useRequestHeaders, useRuntimeConfig } from '#imports'
 import { LogtoContext } from '@logto/node/lib/types'
 import { ComputedRef } from 'nuxt/dist/app/compat/vue-demi'
+import { withQuery } from 'ufo'
 import { useLogtoState } from './useLogtoState'
 
 export interface UseLogtoReturn {
@@ -72,25 +73,24 @@ export const useLogto = (): UseLogtoReturn => {
 
   /**
    * Sign in the user.
-   * @param url - The auth api route to use for signing in.
+   * @param redirectTo - The route to redirect to after sign in.
    */
-  const signIn = () => {
-    const signInUrl = `${basePath}/sign-in`
+  const signIn = (redirectTo?: string) => {
+    const signInUrl = withQuery(`${basePath}/sign-in`, { redirectTo })
     window.location.assign(signInUrl)
   }
 
   /**
    * Sign up the user.
-   * @param url - The auth api route to use for signing up.
+   * @param redirectTo - The route to redirect to after sign up.
    */
-  const signUp = () => {
-    const url = `${basePath}/sign-up`
-    window.location.assign(url)
+  const signUp = (redirectTo?: string) => {
+    const signUpUrl = withQuery(`${basePath}/sign-up`, { redirectTo })
+    window.location.assign(signUpUrl)
   }
 
   /**
    * Sign out the user.
-   * @param url - The auth api route to use for signing out.
    */
   const signOut = () => {
     const url = `${basePath}/sign-out`
