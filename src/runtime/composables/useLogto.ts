@@ -1,5 +1,5 @@
 import { computed, useRequestHeaders, useRuntimeConfig } from '#imports'
-import { LogtoContext } from '@logto/node/lib/types'
+import { LogtoContext } from '@logto/node'
 import { ComputedRef } from 'nuxt/dist/app/compat/vue-demi'
 import { withQuery, joinURL } from 'ufo'
 import { useLogtoState } from './useLogtoState'

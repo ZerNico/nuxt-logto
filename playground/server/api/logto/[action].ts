@@ -1,6 +1,6 @@
 import { logtoClient } from '~/lib/logto'
 
 export default logtoClient.handleAuthRoutes({
-  getAccessToken: true,
+  //getAccessToken: true,
   fetchUserInfo: true,
 })
