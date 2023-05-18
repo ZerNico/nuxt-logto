@@ -1,7 +1,7 @@
 import { computed, useRequestHeaders, useRuntimeConfig } from '#imports'
 import { LogtoContext } from '@logto/node/lib/types'
 import { ComputedRef } from 'nuxt/dist/app/compat/vue-demi'
-import { withQuery } from 'ufo'
+import { withQuery, joinURL } from 'ufo'
 import { useLogtoState } from './useLogtoState'
 
 export interface UseLogtoReturn {
@@ -9,9 +9,12 @@ export interface UseLogtoReturn {
   userInfo: Readonly<ComputedRef<LogtoContext['userInfo']>>
   accessToken: Readonly<ComputedRef<LogtoContext['accessToken']>>
   isAuthenticated: Readonly<ComputedRef<boolean>>
-  signIn: (url?: string) => void
-  signUp: (url?: string) => void
-  signOut: (url?: string) => void
+  signIn: (redirectTo?: string) => void
+  getSigInUrl: (redirectTo?: string) => string
+  signUp: (redirectTo?: string) => void
+  getSignUpUrl: (redirectTo?: string) => string
+  signOut: (redirectTo?: string) => void
+  getSignOutUrl: (redirectTo?: string) => string
   fetchContext: () => Promise<void>
 }
 
@@ -76,8 +79,16 @@ export const useLogto = (): UseLogtoReturn => {
    * @param redirectTo - The route to redirect to after sign in.
    */
   const signIn = (redirectTo?: string) => {
-    const signInUrl = withQuery(`${basePath}/sign-in`, { redirectTo })
-    window.location.assign(signInUrl)
+    window.location.assign(getSigInUrl(redirectTo))
+  }
+
+  /**
+   * Get the sign in url.
+   * @param redirectTo - The route to redirect to after sign in.
+   * @returns The sign in url.
+   */
+  const getSigInUrl = (redirectTo?: string) => {
+    return withQuery(joinURL(basePath, 'sign-in'), { redirectTo })
   }
 
   /**
@@ -85,16 +96,31 @@ export const useLogto = (): UseLogtoReturn => {
    * @param redirectTo - The route to redirect to after sign up.
    */
   const signUp = (redirectTo?: string) => {
-    const signUpUrl = withQuery(`${basePath}/sign-up`, { redirectTo })
-    window.location.assign(signUpUrl)
+    window.location.assign(getSignUpUrl(redirectTo))
+  }
+
+  /**
+   * Get the sign up url.
+   * @param redirectTo - The route to redirect to after sign up.
+   * @returns The sign up url.
+   */
+  const getSignUpUrl = (redirectTo?: string) => {
+    return withQuery(joinURL(basePath, 'sign-up'), { redirectTo })
   }
 
   /**
    * Sign out the user.
    */
   const signOut = () => {
-    const url = `${basePath}/sign-out`
-    window.location.assign(url)
+    window.location.assign(getSignOutUrl())
+  }
+
+  /**
+   * Get the sign out url.
+   * @returns The sign out url.
+   */
+  const getSignOutUrl = () => {
+    return joinURL(basePath, 'sign-out')
   }
 
   return {
@@ -104,8 +130,11 @@ export const useLogto = (): UseLogtoReturn => {
     accessToken,
     fetchContext,
     signIn,
+    getSigInUrl,
     signUp,
+    getSignUpUrl,
     signOut,
+    getSignOutUrl,
   }
 }
 export default useLogto
