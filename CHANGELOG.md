@@ -1,4 +1,17 @@
 
+## v0.0.10
+
+[compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.9...v0.0.10)
+
+
+### 🚀 Enhancements
+
+  - Parse resources and scopes if they are strings to allow setting them by env ([68eb774](https://github.com/ZerNico/nuxt-logto/commit/68eb774))
+
+### ❤️  Contributors
+
+- ZerNico ([@ZerNico](http://github.com/ZerNico))
+
 ## v0.0.9
 
 [compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.8...v0.0.9)
