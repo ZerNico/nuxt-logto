@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     basePath: '/api/logto',
     cookieSecret: 'complex_password_at_least_32_characters_long',
     cookieSecure: process.env.NODE_ENV === 'production',
-    resources: [],
+    resources: '',
+    scopes: '',
   },
 })

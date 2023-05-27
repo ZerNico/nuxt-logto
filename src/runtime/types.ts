@@ -20,6 +20,11 @@ export interface LogtoNuxtConfig extends LogtoConfig {
   basePath: string
 }
 
+export type LogtoNuxtModuleConfig = Omit<LogtoNuxtConfig, 'resources' | 'scopes'> & {
+  resources: string | string[]
+  scopes: string | string[]
+}
+
 export type Adapters = {
   NodeClient: typeof NodeClient
 }

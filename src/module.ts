@@ -1,8 +1,8 @@
 import { defineNuxtModule, addPlugin, createResolver, addTemplate, addImports } from '@nuxt/kit'
 import { defu } from 'defu'
-import { LogtoNuxtConfig } from './runtime/types'
+import { LogtoNuxtModuleConfig } from './runtime/types'
 
-export default defineNuxtModule<LogtoNuxtConfig>({
+export default defineNuxtModule<LogtoNuxtModuleConfig>({
   meta: {
     name: '@zernico/nuxt-logto',
     configKey: 'logto',
@@ -10,17 +10,22 @@ export default defineNuxtModule<LogtoNuxtConfig>({
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
+    // @ts-ignore
     nuxt.options.runtimeConfig.logto = defu(
       nuxt.options.runtimeConfig.logto,
       { ...options },
       { coookieSecure: true, basePath: '/api/logto' }
     )
 
+    // @ts-ignore
     nuxt.options.runtimeConfig.public.logto = defu(
       nuxt.options.runtimeConfig.public.logto,
       {
         appId: options.appId,
         basePath: options.basePath,
+      },
+      {
+        appId: nuxt.options.runtimeConfig.logto.appId,
       },
       { basePath: '/api/logto' }
     )

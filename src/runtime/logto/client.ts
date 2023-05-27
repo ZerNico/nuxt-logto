@@ -1,14 +1,14 @@
 import { GetContextParameters, InteractionMode } from '@logto/node'
 import { H3Event, eventHandler, sendRedirect, getQuery } from 'h3'
 import { joinURL } from 'ufo'
-import { useRuntimeConfig } from '#imports'
 import { LogtoNuxtConfig } from '../types'
 import { createLogtoEvent } from './event'
+import { useConfig } from "../config"
 
 export class LogtoClient {
   protected logtoConfig: LogtoNuxtConfig
   constructor() {
-    this.logtoConfig = useRuntimeConfig().logto
+    this.logtoConfig = useConfig()
   }
 
   /**
