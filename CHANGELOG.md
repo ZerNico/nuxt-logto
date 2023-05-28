@@ -1,4 +1,21 @@
 
+## v0.0.11
+
+[compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.10...v0.0.11)
+
+
+### 💅 Refactors
+
+  - Clean up config handling ([b9e040a](https://github.com/ZerNico/nuxt-logto/commit/b9e040a))
+
+### ✅ Tests
+
+  - Fix client tests ([94167cc](https://github.com/ZerNico/nuxt-logto/commit/94167cc))
+
+### ❤️  Contributors
+
+- ZerNico ([@ZerNico](http://github.com/ZerNico))
+
 ## v0.0.10
 
 [compare changes](https://github.com/ZerNico/nuxt-logto/compare/v0.0.9...v0.0.10)

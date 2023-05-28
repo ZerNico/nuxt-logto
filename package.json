@@ -1,6 +1,6 @@
 {
   "name": "@zernico/nuxt-logto",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Logto auth module for Nuxt 3",
   "repository": {
     "type": "git",
