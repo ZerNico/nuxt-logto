@@ -3,15 +3,18 @@ import { App, EventHandler, Router, createApp, createRouter, toNodeListener } fr
 import supertest, { SuperTest, Test } from 'supertest'
 import { type InteractionMode } from '@logto/node'
 import { LogtoClient } from './client'
-import { LogtoNuxtConfig } from "../types"
 
-const config: LogtoNuxtConfig = {
-  appId: 'app_id_value',
+const config = {
+  appSecret: 'app_secret_value',
   endpoint: 'https://logto.dev',
-  origin: 'http://localhost:3000',
-  basePath: '/api/logto',
   cookieSecret: 'complex_password_at_least_32_characters_long',
   cookieSecure: process.env.NODE_ENV === 'production',
+}
+
+const publicConfig = {
+  appId: 'app_id_value',
+  basePath: '/api/logto',
+  origin: 'http://localhost:3000',
 }
 
 const signInUrl = 'http://mock-logto-server.com/sign-in'
@@ -20,6 +23,9 @@ vi.mock('#imports', () => ({
   useRuntimeConfig: () => {
     return {
       logto: config,
+      public: {
+        logto: publicConfig,
+      }
     }
   },
 }))
@@ -56,7 +62,7 @@ vi.mock('@logto/node', () => ({
       signIn()
     }
     signOut = async () => {
-      this.navigate(config.origin)
+      this.navigate(publicConfig.origin)
       signOut()
     }
     handleSignInCallback = handleSignInCallback
@@ -112,7 +118,7 @@ describe('Nuxt LogtoClient', () => {
 
       const result = await request.get('/api/logto/sign-in-callback')
 
-      expect(result.header.location).toBe(config.origin)
+      expect(result.header.location).toBe(publicConfig.origin)
       expect(handleSignInCallback).toHaveBeenCalled()
       expect(save).toHaveBeenCalled()
     })
@@ -125,7 +131,7 @@ describe('Nuxt LogtoClient', () => {
 
       const result = await request.get('/api/logto/sign-out')
 
-      expect(result.header.location).toBe(`${config.origin}`)
+      expect(result.header.location).toBe(`${publicConfig.origin}`)
       expect(save).toHaveBeenCalled()
       expect(signOut).toHaveBeenCalled()
     })
