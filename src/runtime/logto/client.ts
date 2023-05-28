@@ -3,7 +3,7 @@ import { H3Event, eventHandler, sendRedirect, getQuery } from 'h3'
 import { joinURL } from 'ufo'
 import { LogtoNuxtConfig } from '../types'
 import { createLogtoEvent } from './event'
-import { useConfig } from "../config"
+import { useConfig } from '../config'
 
 export class LogtoClient {
   protected logtoConfig: LogtoNuxtConfig
@@ -20,7 +20,7 @@ export class LogtoClient {
    * @returns An event handler to handle sign in / sign up.
    */
   handleSignIn = (
-    redirectUri = `${this.logtoConfig.origin}${this.logtoConfig.basePath}/sign-in-callback`,
+    redirectUri = joinURL(this.logtoConfig.origin, this.logtoConfig.basePath, 'sign-in-callback'),
     interactionMode?: InteractionMode
   ) =>
     eventHandler(async (event) => {
@@ -59,7 +59,7 @@ export class LogtoClient {
       const url = event.node.req.url
 
       if (url) {
-        await logtoEvent.nodeClient.handleSignInCallback(`${this.logtoConfig.origin}${url}`)
+        await logtoEvent.nodeClient.handleSignInCallback(joinURL(this.logtoConfig.origin, url))
         await logtoEvent.storage.save()
         return sendRedirect(event, redirect)
       }

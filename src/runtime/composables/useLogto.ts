@@ -26,6 +26,7 @@ export interface UseLogtoReturn {
  */
 export const useLogto = (): UseLogtoReturn => {
   const basePath = useRuntimeConfig().public.logto.basePath
+  const origin = useRuntimeConfig().public.logto.origin
 
   const { data } = useLogtoState()
 
@@ -35,7 +36,7 @@ export const useLogto = (): UseLogtoReturn => {
    * It can be used to refresh the user context.
    */
   const fetchContext = async () => {
-    const contextUrl = `${basePath}/context`
+    const contextUrl = joinURL(origin, basePath, 'context')    
     const headers = useRequestHeaders(['cookie']) as HeadersInit
     data.value = await $fetch<LogtoContext>(contextUrl, { headers })
   }
@@ -88,7 +89,7 @@ export const useLogto = (): UseLogtoReturn => {
    * @returns The sign in url.
    */
   const getSigInUrl = (redirectTo?: string) => {
-    return withQuery(joinURL(basePath, 'sign-in'), { redirectTo })
+    return withQuery(joinURL(origin, basePath, 'sign-in'), { redirectTo })
   }
 
   /**
@@ -105,7 +106,7 @@ export const useLogto = (): UseLogtoReturn => {
    * @returns The sign up url.
    */
   const getSignUpUrl = (redirectTo?: string) => {
-    return withQuery(joinURL(basePath, 'sign-up'), { redirectTo })
+    return withQuery(joinURL(origin, basePath, 'sign-up'), { redirectTo })
   }
 
   /**

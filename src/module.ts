@@ -10,22 +10,22 @@ export default defineNuxtModule<LogtoNuxtModuleConfig>({
   setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
+    const { basePath, appId, origin, ...privateOptions } = options
+
     // @ts-ignore
     nuxt.options.runtimeConfig.logto = defu(
       nuxt.options.runtimeConfig.logto,
-      { ...options },
-      { coookieSecure: true, basePath: '/api/logto' }
+      { ...privateOptions },
+      { coookieSecure: true }
     )
 
     // @ts-ignore
     nuxt.options.runtimeConfig.public.logto = defu(
       nuxt.options.runtimeConfig.public.logto,
       {
-        appId: options.appId,
-        basePath: options.basePath,
-      },
-      {
-        appId: nuxt.options.runtimeConfig.logto.appId,
+        appId: appId,
+        basePath: basePath,
+        origin: origin,
       },
       { basePath: '/api/logto' }
     )
