@@ -47,7 +47,7 @@
     "@types/supertest": "^2.0.12",
     "changelogen": "^0.5.3",
     "eslint": "^8.40.0",
-    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-prettier": "^9.0.0",
     "nuxt": "^3.5.0",
     "prettier": "^3.0.0",
     "supertest": "^6.3.3",
